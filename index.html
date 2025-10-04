@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОБМ - Отдел Безопасности Мультивселенной</title>
+    <style>
+        /* === Base Styles & CSS Reset === */
+        :root {
+            --color-deep-space: #0a0a2a;
+            --color-absolute-black: #000000;
+            --color-card-bg: #1a1a1a;
+            --color-neon-blue: #00f3ff;
+            --color-terminal-green: #00ff41;
+            --color-alert-red: #ff0000;
+            --color-text-primary: #e0e0e0;
+            --neon-purple: #9c27b0;
+            --neon-green: #00ff9d;
+            --text-dim: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--color-absolute-black);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(rgba(10, 10, 42, 0.9), rgba(0, 0, 0, 0.9));
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* === Typography & Text Effects === */
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--color-neon-blue);
+            margin-bottom: 1rem;
+            letter-spacing: 1.5px;
+        }
+
+        .glitch-text {
+            text-shadow: 2px 0px 1px var(--color-alert-red), -2px 0px 1px var(--color-neon-blue);
+            animation: text-flicker 3s infinite alternate;
+        }
+
+        @keyframes text-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.85; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--color-neon-blue);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--color-neon-blue); }
+        }
+
+        /* === Layout & Navigation === */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-neon-blue);
+            margin-bottom: 2rem;
+            background-color: rgba(10, 10, 26, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--color-text-primary);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--color-neon-blue);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-neon-blue);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .status-indicator {
+            font-size: 0.8rem;
+            color: var(--color-terminal-green);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* === Hero Section === */
+        .hero {
+            text-align: center;
+            padding: 8rem 2rem;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(15, 26, 42, 0.8) 0%, rgba(10, 10, 26, 0.9) 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,168,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem; /* Уменьшен размер шрифта */
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--color-neon-blue), var(--neon-purple), var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-dim);
+        }
+
+        .portal-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--color-neon-blue), var(--neon-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .portal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 168, 255, 0.8);
+        }
+        
+        .portal-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .portal-btn:hover::before {
+            left: 100%;
+        }
+
+        /* === Main Content Sections === */
+        main {
+            margin-top: 80px;
+        }
+        
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.2rem; /* Уменьшен размер шрифта */
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--color-neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--color-neon-blue), var(--neon-purple));
+        }
+
+        /* === Advantages Section === */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .advantage-card {
+            background: rgba(15, 26, 42, 0.7);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 168, 255, 0.2);
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
+            border-color: var(--color-neon-blue);
+        }
+        
+        .advantage-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-neon-blue);
+        }
+        
+        .advantage-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-neon-blue);
+        }
+
+        /* === Activities Section === */
+        .activities {
+            background: rgba(15, 26, 42, 0.5);
+        }
+        
+        .activity-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .activity-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(10, 10, 26, 0.7);
+            border-radius: 8px;
+            border-left: 4px solid var(--color-neon-blue);
+        }
+        
+        .activity-item h3 {
+            color: var(--color-neon-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* === Classification Table === */
+        .classification-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: rgba(15, 26, 42, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .classification-table th {
+            background: linear-gradient(to right, var(--color-neon-blue), var(--neon-purple));
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .classification-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+        }
+        
+        .classification-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .classification-table tr:hover {
+            background: rgba(0, 168, 255, 0.1);
+        }
+
+        /* === Multiverse Map === */
+        .multiverse-map {
+            height: 500px;
+            background: rgba(15, 26, 42, 0.7);
+            border-radius: 10px;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 168, 255, 0.3);
+        }
+        
+        .universe-node {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-neon-blue);
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px var(--color-neon-blue);
+        }
+        
+        .universe-node:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 20px var(--color-neon-blue);
+        }
+        
+        .portal-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--color-neon-blue), transparent);
+            transform-origin: 0 0;
+        }
+
+        /* === Anomaly Database Section - Using CSS Grid === */
+        .anomaly-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: rgba(15, 26, 42, 0.7);
+            border: 1px solid var(--color-neon-blue);
+            color: var(--text-light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .filter-btn.active {
+            background: var(--color-neon-blue);
+            color: var(--space-dark);
+        }
+
+        .anomaly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .anomaly-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid #333;
+            padding: 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anomaly-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .anomaly-card:hover::before {
+            left: 100%;
+        }
+
+        .anomaly-card:hover {
+            border-color: var(--color-neon-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .anomaly-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .type-spatial {
+            background: rgba(0, 168, 255, 0.2);
+            color: var(--color-neon-blue);
+        }
+        
+        .type-interdimensional {
+            background: rgba(156, 39, 176, 0.2);
+            color: var(--neon-purple);
+        }
+        
+        .type-temporal {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+        }
+
+        .threat-level {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .threat-level.high {
+            background-color: var(--color-alert-red);
+            color: var(--color-absolute-black);
+        }
+
+        .threat-level.medium {
+            background-color: orange;
+            color: var(--color-absolute-black);
+        }
+
+        .threat-level.low {
+            background-color: var(--color-terminal-green);
+            color: var(--color-absolute-black);
+        }
+        
+        .anomaly-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .status-active {
+            background: var(--neon-green);
+            box-shadow: 0 0 5px var(--neon-green);
+        }
+        
+        .status-contained {
+            background: var(--color-neon-blue);
+            box-shadow: 0 0 5px var(--color-neon-blue);
+        }
+        
+        .status-danger {
+            background: #ff3d00;
+            box-shadow: 0 0 5px #ff3d00;
+        }
+
+        .censored {
+            background-color: var(--color-absolute-black);
+            color: var(--color-absolute-black);
+            padding: 0 0.5rem;
+            user-select: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .censored:hover {
+            color: var(--color-text-primary);
+            background-color: #333;
+        }
+
+        /* === Terminal Console === */
+        .terminal {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--color-neon-blue);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .terminal-output {
+            height: 150px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .terminal-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-prompt {
+            color: var(--color-terminal-green);
+            margin-right: 0.5rem;
+        }
+
+        .terminal-input input {
+            background: transparent;
+            border: none;
+            color: var(--color-text-primary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            width: 100%;
+            outline: none;
+        }
+
+        /* === Footer === */
+        footer {
+            background: rgba(10, 10, 26, 0.9);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 168, 255, 0.3);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-neon-blue);
+        }
+        
+        .copyright {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* === Star Background === */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        /* === Responsive Design === */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem; /* Уменьшен размер для мобильных */
+            }
+
+            .anomaly-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 3rem 1rem;
+            }
+            
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8rem; /* Уменьшен размер для мобильных */
+            }
+        }
+    </style>
+    <!-- Google Fonts for Headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Звездный фон -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Навигация -->
+    <header>
+        <div class="logo">
+            <h1 class="glitch-text">ОБМ</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">О НАС</a></li>
+                <li><a href="#advantages">ПРЕИМУЩЕСТВА</a></li>
+                <li><a href="#activities">ДЕЯТЕЛЬНОСТЬ</a></li>
+                <li><a href="#classification">КЛАССИФИКАЦИЯ</a></li>
+                <li><a href="#multiverse">МУЛЬТИВСЕЛЕННАЯ</a></li>
+                <li><a href="#anomalies">АНАМАЛИИ</a></li>
+                <li><a href="#terminal">ТЕРМИНАЛ</a></li>
+            </ul>
+        </nav>
+        <div class="status-indicator" id="systemStatus">[СТАТУС СИСТЕМЫ: НОРМА]</div>
+    </header>
+    
+    <!-- Основной контент -->
+    <main>
+        <!-- Герой-секция -->
+        <section class="hero">
+            <h1 class="typewriter">ОТДЕЛ БЕЗОПАСНОСТИ МУЛЬТИВСЕЛЕННОЙ</h1>
+            <p>Обеспечение стабильности, порядка и защиты от межпространственных угроз во всех известных и пока неоткрытых реальностях</p>
+            <p>Сохранение стабильности. Защита реальности.</p>
+            <a href="#multiverse" class="portal-btn">АКТИВИРОВАТЬ ПОРТАЛ</a>
+        </section>
+        
+        <!-- Секция "О нас" -->
+        <section id="about">
+            <h2 class="section-title">🌌 КОНЦЕПЦИЯ И ОСНОВНЫЕ ПРЕИМУЩЕСТВА ОТДЕЛА</h2>
+            <p>Мы — Отдел Безопасности Мультивселенной (ОБМ). Наша миссия — обеспечение стабильности, порядка и защиты от межпространственных угроз во всех известных и пока неоткрытых реальностях. В то время как обычные службы безопасности защищают физические и цифровые активы в рамках одной вселенной, наш ОБМ работает на макроуровне, контролируя целостность пространственно-временного континуума.</p>
+            <p>С тех пор как человечество осознало существование мультивселенной, возникла потребность в ее защите. Мы — та невидимая стена, что стоит между вашей реальностью и хаосом. Наше существование — строго засекречено. Ваше неведение — наша главная задача.</p>
+        </section>
+        
+        <!-- Секция преимуществ -->
+        <section id="advantages">
+            <h2 class="section-title">КЛЮЧЕВЫЕ ПРЕИМУЩЕСТВА</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">🌐</div>
+                    <h3>ПАНАКОСМИЧЕСКИЙ ОХВАТ</h3>
+                    <p>Наша деятельность не ограничена одним измерением. Мы обеспечиваем безопасность across the multiverse.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">🔬</div>
+                    <h3>ЭКСПЕРТИЗА В РАБОТЕ С АНОМАЛИЯМИ</h3>
+                    <p>Наши специалисты обладают уникальными знаниями для классификации, анализа и нейтрализации любых пространственных нестабильностей.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">📋</div>
+                    <h3>ПРОТОКОЛЫ ДЛЯ ЛЮБЫХ СЦЕНАРИЕВ</h3>
+                    <p>Мы разработали и внедрили регламенты действий как для рутинного мониторинга, так и для кризисных ситуаций межпространственного масштаба.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">🤝</div>
+                    <h3>МЕЖГАЛАКТИЧЕСКОЕ ВЗАИМОДЕЙСТВИЕ</h3>
+                    <p>Мы поддерживаем дипломатические и оперативные связи с правоохранительными и научными структурами ключевых цивилизаций для координации усилий.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Секция деятельности -->
+        <section id="activities" class="activities">
+            <h2 class="section-title">👨‍🚀 ЧЕМ ЗАНИМАЮТСЯ НАШИ СОТРУДНИКИ</h2>
+            <p>Работа в ОБМ — это не только про контроль доступа через порталы. Это сложная, многоуровневая система управления рисками для всей Мультивселенной.</p>
+            
+            <div class="activity-list">
+                <div class="activity-item">
+                    <h3>НАБЛЮДЕНИЕ И КОНТРОЛЬ</h3>
+                    <p>Сотрудники Отдела мониторят работу системы стабилизации пространства, чтобы вовремя выявить потенциальную угрозу или брешь в безопасности. Они следят за показателями всех активных порталов.</p>
+                </div>
+                <div class="activity-item">
+                    <h3>АНАЛИЗ И ОЦЕНКА РИСКОВ</h3>
+                    <p>ОБМ постоянно проводит анализ угроз, исходящих от деятельности различных вселенных: идентификацию потенциальных пространственных разломов, оценку их вероятности и воздействия на стабильность Мультивселенной. На основе этих данных разрабатываются стратегии по их устранению.</p>
+                </div>
+                <div class="activity-item">
+                    <h3>РАЗРАБОТКА И ВНЕДРЕНИЕ РЕГЛАМЕНТОВ</h3>
+                    <p>Одной из ключевых функций Отдела является разработка правил безопасного перемещения между реальностями, процедур работы с конфиденциальными межпространственными знаниями и мер по физической безопасности при контакте с аномалиями.</p>
+                </div>
+                <div class="activity-item">
+                    <h3>РЕАГИРОВАНИЕ НА ИНЦИДЕНТЫ</h3>
+                    <p>Служба должна быстро реагировать на инциденты, которые могут угрожать целостности реальностей. Разрабатываются протоколы ликвидации последствий несанкционированных вмешательств, осуществляется взаимодействие с силовыми структурами затронутых вселенных.</p>
+                </div>
+                <div class="activity-item">
+                    <h3>ОБУЧЕНИЕ И ПОДДЕРЖАНИЕ КУЛЬТУРЫ БЕЗОПАСНОСТИ</h3>
+                    <p>ОБМ организует мероприятия для повышения осведомленности жителей всех миров о правилах межпространственной безопасности. Все цивилизации должны осознавать важность соблюдения этих норм.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Секция классификации -->
+        <section id="classification">
+            <h2 class="section-title">🌀 КЛАССИФИКАЦИЯ ПОРТАЛОВ И АНОМАЛИЙ</h2>
+            <p>Этот раздел сайта можно представить как базу знаний или каталог угроз. Порталы — это не просто двери в другие миры; это сложные и часто опасные образования.</p>
+            
+            <h3 style="margin: 2rem 0 1rem; color: var(--color-neon-blue);">ТИПОЛОГИЯ ПОРТАЛОВ ПО НАЗНАЧЕНИЮ:</h3>
+            <table class="classification-table">
+                <thead>
+                    <tr>
+                        <th>ТИП ПОРТАЛА</th>
+                        <th>НАЗНАЧЕНИЕ И РИСКИ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ПРОСТРАНСТВЕННЫЙ (МЕСТНЫЙ)</strong></td>
+                        <td>Перемещение в пределах одной Вселенной. Относительно предсказуем, но может вести в опасные локации (центр звезды, глубокий космос).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>МЕЖПРОСТРАНСТВЕННЫЙ</strong></td>
+                        <td>Соединяет разные миры или вселенные. Главный риск — столкновение с враждебными формами жизни или законами физики, несовместимыми с вашей биологией.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>МЕЖВРЕМЕННОЙ</strong></td>
+                        <td>Перемещение в разные временные периоды. Чрезвычайно опасен; любое вмешательство может привести к катастрофическим временным парадоксам.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(15, 26, 42, 0.7); border-radius: 8px; border-left: 4px solid var(--neon-purple);">
+                <h3 style="color: var(--neon-purple); margin-bottom: 0.5rem;">ЧТО ТАКОЕ ПРОСТРАНСТВЕННЫЕ АНОМАЛИИ:</h3>
+                <p>Это нестабильные и непредсказуемые порталы, часто возникающие спонтанно. Они могут переносить объекты на гигантские расстояния, но точка выхода заранее неизвестна — она может оказаться под землей, под водой или в открытом космосе. Попадание на край такой аномалии может иметь негативные последствия для здоровья живых существ.</p>
+            </div>
+        </section>
+        
+        <!-- Секция мультивселенной -->
+        <section id="multiverse">
+            <h2 class="section-title">КАРТА МУЛЬТИВСЕЛЕННОЙ</h2>
+            <p>Интерактивная карта, отображающая известные вселенные и контролируемые порталы между ними.</p>
+            
+            <div class="multiverse-map" id="multiverseMap">
+                <!-- Узлы вселенных и связи будут добавлены через JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Секция аномалий -->
+        <section id="anomalies">
+            <h2 class="section-title">БАЗА ДАННЫХ АНОМАЛИЙ</h2>
+            <p>Каталог зарегистрированных пространственных аномалий и угроз.</p>
+            <p class="censored">[ДОСТУП ОГРАНИЧЕН. ПОКАЗАНЫ ТОЛЬКО РАССЕКРЕЧЕННЫЕ ОБРАЗЦЫ]</p>
+            
+            <div class="anomaly-filters">
+                <button class="filter-btn active" data-filter="all">ВСЕ</button>
+                <button class="filter-btn" data-filter="spatial">ПРОСТРАНСТВЕННЫЕ</button>
+                <button class="filter-btn" data-filter="interdimensional">МЕЖПРОСТРАНСТВЕННЫЕ</button>
+                <button class="filter-btn" data-filter="temporal">МЕЖВРЕМЕННЫЕ</button>
+                <button class="filter-btn" data-filter="classified">ЗАСЕКРЕЧЕННЫЕ</button>
+            </div>
+            
+            <div class="anomaly-grid">
+                <div class="anomaly-card" data-type="spatial">
+                    <span class="anomaly-type type-spatial">ПРОСТРАНСТВЕННАЯ</span>
+                    <h3>АНАМАЛИЯ "ЗЕРКАЛО"</h3>
+                    <p>Создает точные копии объектов, но с противоположными свойствами. Опасна непредсказуемыми последствиями взаимодействия материи и антиматерии.</p>
+                    <div class="anomaly-status">
+                        <span class="status-dot status-active"></span>
+                        <span>АКТИВНА</span>
+                    </div>
+                </div>
+                
+                <div class="anomaly-card" data-type="interdimensional">
+                    <span class="anomaly-type type-interdimensional">МЕЖПРОСТРАНСТВЕННАЯ</span>
+                    <h3>ПОРТАЛ "ЭХО"</h3>
+                    <p>Связывает нашу реальность с измерением, где время течет в обратном направлении. Контакт может привести к временным парадоксам.</p>
+                    <div class="anomaly-status">
+                        <span class="status-dot status-contained"></span>
+                        <span>СДЕРЖИВАЕТСЯ</span>
+                    </div>
+                </div>
+                
+                <div class="anomaly-card" data-type="temporal">
+                    <span class="anomaly-type type-temporal">МЕЖВРЕМЕННАЯ</span>
+                    <h3>РАЗЛОМ "ХРОНОС"</h3>
+                    <p>Позволяет наблюдать события из разных временных периодов, но любое вмешательство может катастрофически изменить ход истории.</p>
+                    <div class="anomaly-status">
+                        <span class="status-dot status-danger"></span>
+                        <span>ВЫСОКИЙ РИСК</span>
+                    </div>
+                </div>
+                
+                <div class="anomaly-card" data-type="spatial">
+                    <span class="anomaly-type type-spatial">ПРОСТРАНСТВЕННАЯ</span>
+                    <h3>АНАМАЛИЯ "ГРАВИТАЦИОННЫЙ КОЛОДЕЦ"</h3>
+                    <p>Создает локальные зоны с аномально высокой гравитацией, представляющие опасность для космических кораблей и станций.</p>
+                    <div class="anomaly-status">
+                        <span class="status-dot status-contained"></span>
+                        <span>СДЕРЖИВАЕТСЯ</span>
+                    </div>
+                </div>
+
+                <!-- Засекреченные аномалии из второго файла -->
+                <div class="anomaly-card" data-type="classified">
+                    <div class="threat-level low">У-2</div>
+                    <h3>ОБМ-<span class="censored">74█9</span></h3>
+                    <p>Объект проявляется как самокорректирующийся нарратив, изменяющий воспоминания свидетелей.</p>
+                    <p><strong>ПРОЦЕДУРЫ СОДЕРЖАНИЯ:</strong> <span class="censored">[ДАННЫЕ УДАЛЕНЫ]</span></p>
+                </div>
+                
+                <div class="anomaly-card" data-type="classified">
+                    <div class="threat-level medium">У-5</div>
+                    <h3>ОБМ-<span class="censored">11█6</span></h3>
+                    <p>Статический портал, генерирующий фантомные копии предметов из смежных реальностей.</p>
+                    <p><strong>ПРОЦЕДУРЫ НЕЙТРАЛИЗАЦИИ:</strong> <span class="censored">Требуется активация протокола SED-MV/03</span></p>
+                </div>
+                
+                <div class="anomaly-card" data-type="classified">
+                    <div class="threat-level high">У-8</div>
+                    <h3>ОБМ-<span class="censored">88█8</span></h3>
+                    <p>Сущность, способная манипулировать фундаментальными константами в радиусе 5km.</p>
+                    <p><strong>ПРОЦЕДУРЫ СОДЕРЖАНИЯ:</strong> <span class="censored">[ДАННЫЕ УДАЛЕНЫ ПРИКАЗОМ ДИРЕКТОРА ОБМ]</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Terminal -->
+        <section id="terminal">
+            <h2 class="section-title">ТЕРМИНАЛ ДОСТУПА</h2>
+            <div class="terminal">
+                <div class="terminal-output" id="terminalOutput">
+                    > Инициализация терминала ОБМ...<br>
+                    > Проверка уровня доступа...<br>
+                    > ДОСТУП: ОГРАНИЧЕННЫЙ<br>
+                    > Введите 'help' для списка команд.<br>
+                </div>
+                <div class="terminal-input">
+                    <span class="terminal-prompt">></span>
+                    <input type="text" id="terminalInput" placeholder="Введите команду...">
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Футер -->
+    <footer>
+        <div class="logo">
+            <h1 class="glitch-text">ОБМ</h1>
+        </div>
+        <p>ОТДЕЛ БЕЗОПАСНОСТИ МУЛЬТИВСЕЛЕННОЙ</p>
+        
+        <div class="footer-links">
+            <a href="#about">О НАС</a>
+            <a href="#advantages">ПРЕИМУЩЕСТВА</a>
+            <a href="#activities">ДЕЯТЕЛЬНОСТЬ</a>
+            <a href="#classification">КЛАССИФИКАЦИЯ</a>
+            <a href="#multiverse">МУЛЬТИВСЕЛЕННАЯ</a>
+            <a href="#anomalies">АНАМАЛИИ</a>
+            <a href="#terminal">ТЕРМИНАЛ</a>
+        </div>
+        
+        <p class="copyright">© 2023 ОБМ. ВСЕ ПРАВА ЗАЩИЩЕНЫ ВО ВСЕХ ИЗМЕРЕНИЯХ.</p>
+    </footer>
+    
+    <script>
+        // === Random System Status Changer ===
+        const statusMessages = [
+            "[СТАТУС СИСТЕМЫ: НОРМА]",
+            "[ОБНАРУЖЕНА АНОМАЛИЯ У-3]",
+            "[АКТИВИРОВАН ПРОТОКОЛ SED-MV/02]",
+            "[ПОДКЛЮЧЕНИЕ К АКСИОМЕ... УСТАНОВЛЕНО]",
+            "[СКАНИРОВАНИЕ РЕАЛЬНОСТИ...]"
+        ];
+
+        function updateSystemStatus() {
+            const statusElement = document.getElementById('systemStatus');
+            const randomIndex = Math.floor(Math.random() * statusMessages.length);
+            statusElement.textContent = statusMessages[randomIndex];
+            
+            // Change color for alert statuses
+            if (statusMessages[randomIndex].includes('АНАМАЛИЯ') || statusMessages[randomIndex].includes('ПРОТОКОЛ')) {
+                statusElement.style.color = 'var(--color-alert-red)';
+            } else {
+                statusElement.style.color = 'var(--color-terminal-green)';
+            }
+        }
+
+        // Update status every 30 seconds
+        setInterval(updateSystemStatus, 30000);
+
+        // === Interactive Terminal ===
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+
+        const commands = {
+            help: "ДОСТУПНЫЕ КОМАНДЫ: status, scan, help, clear, anomalies, protocols",
+            status: "СТАТУС СИСТЕМЫ: ВСЕ ОПЕРАЦИОННЫЕ СИСТЕМЫ В НОРМЕ. Уровень угрозы: НИЗКИЙ.",
+            scan: "СКАНИРОВАНИЕ... Обнаружено 7 аномалий в базе данных. Уровень угрозы в пределах допустимого.",
+            anomalies: "ЗАРЕГИСТРИРОВАННЫЕ АНОМАЛИИ: 'ЗЕРКАЛО', 'ЭХО', 'ХРОНОС', 'ГРАВИТАЦИОННЫЙ КОЛОДЕЦ', и 3 засекреченных объекта.",
+            protocols: "АКТИВНЫЕ ПРОТОКОЛЫ: SED-MV/02, SED-MV/03. Для доступа к деталям требуется уровень доступа 5.",
+            clear: function() { terminalOutput.innerHTML = ''; return "ТЕРМИНАЛ ОЧИЩЕН."; }
+        };
+
+        terminalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.trim().toLowerCase();
+                this.value = '';
+                
+                // Add user input to terminal
+                terminalOutput.innerHTML += `<br>> ${input}`;
+                
+                // Process command
+                let response = "НЕИЗВЕСТНАЯ КОМАНДА. Введите 'help' для списка доступных команд.";
+                
+                if (commands[input]) {
+                    if (typeof commands[input] === 'function') {
+                        response = commands[input]();
+                    } else {
+                        response = commands[input];
+                    }
+                }
+                
+                // Add response to terminal
+                terminalOutput.innerHTML += `<br>${response}`;
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+
+        // === Censored Text Hover Effect ===
+        document.querySelectorAll('.censored').forEach(censored => {
+            censored.addEventListener('mouseenter', function() {
+                this.style.color = '#aaa';
+            });
+            censored.addEventListener('mouseleave', function() {
+                this.style.color = 'var(--color-absolute-black)';
+            });
+        });
+
+        // === Anomaly Filters ===
+        function setupAnomalyFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const anomalyCards = document.querySelectorAll('.anomaly-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Удаление активного класса у всех кнопок
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Добавление активного класса к нажатой кнопке
+                    button.classList.add('active');
+                    
+                    const filter = button.getAttribute('data-filter');
+                    
+                    // Показ/скрытие карточек в зависимости от фильтра
+                    anomalyCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-type') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // === Smooth Scrolling ===
+        function setupSmoothScrolling() {
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Обработка кнопки портала
+            const portalBtn = document.querySelector('.portal-btn');
+            portalBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const targetSection = document.querySelector('#multiverse');
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+
+        // === Star Background ===
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Случайные позиции и размеры
+                const size = Math.random() * 3;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const delay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // === Multiverse Map ===
+        function createMultiverseMap() {
+            const map = document.getElementById('multiverseMap');
+            const universeCount = 15;
+            
+            // Создание узлов вселенных
+            for (let i = 0; i < universeCount; i++) {
+                const node = document.createElement('div');
+                node.classList.add('universe-node');
+                
+                // Случайные позиции
+                const left = 10 + Math.random() * 80;
+                const top = 10 + Math.random() * 80;
+                
+                node.style.left = `${left}%`;
+                node.style.top = `${top}%`;
+                
+                // Добавление информации при наведении
+                node.title = `ВСЕЛЕННАЯ #${i+1}`;
+                
+                map.appendChild(node);
+            }
+            
+            // Создание связей между узлами
+            const nodes = document.querySelectorAll('.universe-node');
+            nodes.forEach((node, index) => {
+                if (index < nodes.length - 1) {
+                    const nextNode = nodes[index + 1];
+                    
+                    const left1 = parseFloat(node.style.left);
+                    const top1 = parseFloat(node.style.top);
+                    const left2 = parseFloat(nextNode.style.left);
+                    const top2 = parseFloat(nextNode.style.top);
+                    
+                    // Расчет расстояния и угла между узлами
+                    const dx = left2 - left1;
+                    const dy = top2 - top1;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    
+                    // Создание линии соединения
+                    const connection = document.createElement('div');
+                    connection.classList.add('portal-connection');
+                    
+                    connection.style.width = `${distance}%`;
+                    connection.style.left = `${left1}%`;
+                    connection.style.top = `${top1}%`;
+                    connection.style.transform = `rotate(${angle}deg)`;
+                    
+                    map.appendChild(connection);
+                }
+            });
+        }
+
+        // === Initialization ===
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createMultiverseMap();
+            setupAnomalyFilters();
+            setupSmoothScrolling();
+            updateSystemStatus();
+        });
+    </script>
+</body>
+</html>
